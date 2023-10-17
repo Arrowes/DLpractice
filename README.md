@@ -1,212 +1,192 @@
 ---
-title: Yolo：Code，Config，Ideas
-date: 2022-11-27 16:04:02
+title: DL：深度学习相关概念
+date: 2022-12-28 20:22:05
+mathjax: true
 tags:
-- python
 - 深度学习
 ---
-# Yolo
-## 环境配置
-详细使用见 [Anaconda，Pycharm，Jupyter，Pytorch](https://wangyujie.site/Pytorch/)
+从机器学习到深度学习：[从机器学习谈起](https://www.cnblogs.com/subconscious/p/4107357.html)，[从神经元到深度学习](https://www.cnblogs.com/subconscious/p/5058741.html)
+什么是卷积讲解视频：[大白话讲解卷积神经网络工作原理](https://www.bilibili.com/video/BV1sb411P7pQ/?share_source=copy_web&vd_source=b148fb6f311bfe6f3870ad8f4dfda92a)
 
-**Windows环境配置**
-1. 安装[**Anaconda**](https://www.anaconda.com/)，
-防止环境装在C盘占空间：修改user目录下.condarc文件里的默认地址，或执行``conda config --add D:\Anaconda3\envs ``,然后``conda info`` 检查envs directories
-（若报错 The channel is not accessible or is invalid 运行``conda config --remove-key channels``）
-
-2. **配置环境**：打开Anaconda Prompt
-创建环境``conda create -n pytorch python=3.8``
-激活环境``conda activate pytorch``
-
-3. 安装显卡驱动对应的**CUDA**：``nvidia-smi`` 查询支持CUDA版本，
-再到[Pytorch官网](https://pytorch.org/get-started/locally/)复制对应code进行安装, 如：
-``conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia``
-（验证torch能否使用GPU：`python -c "import torch;print(torch.cuda.is_available())"`   返回True说明GPU可以被使用）
-
-4. 安装[**Pychram**](https://www.jetbrains.com/pycharm/), 用pycharm打开YOLO项目文件夹，配置编辑器``D:P\Anaconda3\envs\pytorch\python.exe``，在pycharm的terminal中打开pytorch环境
-
-5. 安装各种**包**：``pip install -r requirements.txt``,
-换源补装失败的包``pip install opencv-python -i https://pypi.tuna.tsinghua.edu.cn/simple/``
-
-**Linux 环境配置**
-1. 安装miniconda，相较Anaconda更小巧快捷，功能一样
-    ```sh
-    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-    bash Miniconda3-latest-Linux-x86_64.sh
-    #一路Enter + Yes，最后使修改的PATH环境变量生效：
-    source ~/.bashrc
-    conda   #验证是否成功
-    conda create -n pytorch python=3.6  #创建一个名为pytorch的环境
-    conda activate pytorch  #激活环境
-    ```
-    > （若要安装：[Anaconda](https://www.anaconda.com/)，执行下载的.sh文件，输入``bash XXX.sh``，然后一路enter和yes；激活：``cd ///root/anaconda3/bin``,输入：``source ./activate``，终端前出现``(base)``则激活成功）
-
-2. 下载pycharm，解压，进入bin文件夹，运行``./pycharm.sh``以打开pycharm（更简单且能生成图标的方法：``sudo snap install pycharm-community --classic``）
-在项目中导入环境``.conda/envs/pytorch/bin/python3.6``
-3. 安装CUDA
-    + **pytorch**
-    ``conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia``
-    + **tensorflow**
-    cuda:``conda install cudatoolkit=10.0``
-    cuDNN:``conda install cudnn=7.6``
-    tf:``pip install tensorflow-gpu==1.15.0``(注意版本匹配)
-
-如果requirements中有包实在安不上，手动装包：进[网站](https://pypi.org/)搜索包，下载.whl，在包所在位置激活环境运行``pip install [].whl``(包名中cp38代表python3.8版本)
-
-## 资料与代码
-
-| Model   |Paper  | Code|
-|---------|-------|-------|
-| YOLOv1  | [You Only Look Once:Unified, Real-Time Object Detection](https://arxiv.org/pdf/1506.02640.pdf)        | [Code](https://pjreddie.com/darknet/yolov1/)        |
-| YOLOv2  | [YOLO9000:Better, Faster, Stronger](https://arxiv.org/pdf/1612.08242.pdf) | [Code](https://pjreddie.com/darknet/yolo/)|
-| YOLOv3  | [YOLOv3: An Incremental Improvement](https://arxiv.org/pdf/1804.02767.pdf)| [Code](https://github.com/ultralytics/yolov3)|
-| YOLOv4  | [YOLOv4: Optimal Speed and Accuracy of Object Detection](https://arxiv.org/pdf/2004.10934.pdf)| [Code](https://github.com/Tianxiaomo/pytorch-YOLOv4)|
-| YOLOv5  | /|      [Code](https://github.com/ultralytics/yolov5)|
-| YOLOv6  | [YOLOv6: A Single-Stage Object Detection Framework for Industrial Applications](https://arxiv.org/pdf/2209.02976.pdf)|              [Code](https://github.com/meituan/YOLOv6)|
-| YOLOv7  | [YOLOv7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors](https://arxiv.org/abs/2207.02696)|   [Code](https://github.com/WongKinYiu/yolov7)|
-| YOLOv8  | /|     [Code](https://github.com/ultralytics/ultralytics)  |
-|CEAM-YOLOv7| [CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection](https://ieeexplore.ieee.org/document/9980374/metrics) |       [Code](https://github.com/Arrowes/CEAM-YOLOv7)
-|FEY-YOLOv7| [A Driver Fatigue Detection Algorithm Based on Dynamic Tracking of Small Facial Targets Using YOLOv7](https://search.ieice.org/bin/summary_advpub.php?id=2023EDP7093&category=D&lang=E&abst=) | [Code](https://github.com/Arrowes/FEY-YOLOv7)
-
-YOLOv1 - v5历程：[从yolov1至yolov5的进阶之路](https://blog.csdn.net/wjinjie/article/details/107509243)
-YOLOv3论文精读视频：[同济子豪兄YOLOV3目标检测](https://www.bilibili.com/video/BV1Vg411V7bJ/?)
-YOLOv5知识精讲：[Yolov5核心基础知识完整讲解](https://zhuanlan.zhihu.com/p/172121380)，[YOLOV5-5.x 源码讲解](https://blog.csdn.net/qq_38253797/article/details/119043919)
-YOLOv7网络结构：[理解yolov7网络结构](https://blog.csdn.net/athrunsunny/article/details/125951001) ,[Yolov7 基础网络结构详解](https://blog.csdn.net/u010899190/article/details/125883770)
-全流程指导视频：[目标检测 YOLOv5 开源代码项目调试与讲解实战-土堆](https://www.bilibili.com/video/BV1tf4y1t7ru/)
-
-
-算法精品仓库：[Bubbliiiing](https://github.com/bubbliiiing)
-[YOLO Air](https://github.com/iscyy/yoloair)，[YOLO Air2](https://github.com/iscyy/yoloair2)
-[yolov5_research](https://github.com/positive666/yolov5_research)
-
-
-# Ideas
-## 数据集
-> [Kaggle数据集](https://www.kaggle.com/datasets)
-[格物钛数据集](https://gas.graviti.cn/open-datasets)
-[Roboflow数据集](https://universe.roboflow.com/roboflow-100)
-[IEEE DataPort](https://ieee-dataport.org/datasets)
-
-标注工具：[Roboflow](https://app.roboflow.com/395841716-qq-com)
-
-开源驾驶员行为数据集：[StateFarm-distracted-driver-detection](https://www.kaggle.com/c/state-farm-distracted-driver-detection/data)
-
-数据增强：抖动模糊；三种不同的数据增强方法合成三通道；针对红外图像优化
-扩大数据集：旋转 偏移（首先要保证原始数据量够）；混合数据集——彩色+红外
-各集种类分配不均，测试集要用不同的人
-
-
-## Anchor
-设计——anchor的计算函数Autoanchor
-![图 1](https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo1.png)  
-
-
-## 网络结构
-1. 在 `models/common.py` 加入新的结构代码
-2. 在`models/yolo.py` 的parse_model函数中引入上面新写的结构名称
-3. `.yaml` 修改网络结构
-![图 2](https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo2.png)  
-
-## 注意力模块
-[CV中即插即用的注意力模块](https://zhuanlan.zhihu.com/p/330535757)
-[手把手带你YOLOv5 (v6.1)添加注意力机制](https://blog.csdn.net/weixin_43694096/article/details/124443059?spm=1001.2014.3001.5502)
-
-> 位置：
-在上采样+concat之后接一个注意力机制可能会更好？
-backbone结尾使用一个注意力机制？
-每个block（如residual block）结尾使用比每个Conv里使用更好？
-
-transformer自注意力模块 CBAM注意力模块 CA注意力模块 SE注意力模块
-
-## 激活函数 activations.py
-> activations.py：激活函数代码写在了activations.py文件里，可引入新的激活函数
-common.py：替换激活函数，很多卷积组都涉及到了激活函数（Conv，BottleneckCSP），所以改的时候要全面
-
-例：插入激活函数：Mish
-1.在utils/activation.py中定义Mish激活函数
-2.重构Conv模块，改激活函数：
-```py
-class Conv(nn.Module):
-    # Standard convolution
-    def __init__(self, c1, c2, k=1, s=1, p=None, g=1, act=True):  # ch_in, ch_out, kernel, stride, padding, groups
-        super(Conv, self).__init__()
-        self.conv = nn.Conv2d(c1, c2, k, s, autopad(k, p), groups=g, bias=False)
-        self.bn = nn.BatchNorm2d(c2)
-        #self.act = nn.SiLU() if act is True else (act if isinstance(act, nn.Module) else nn.Identity())
-        self.act = nn.Mish() if act is True else (act if isinstance(act, nn.Module) else nn.Identity())
+# 深度学习框架
+```mermaid
+graph LR
+A[程序框架]-->B[A.黑箱]
+A-->C[B.模块化] -->1.处理数据
+C-->2.构建网络
+C-->3.损失函数
+C-->4.优化函数
+C-->5.模型保存
+A-->E[C.定义]
 ```
 
-## Loss Function
-例：改 EIOU loss
-1. 修改 general.py，增加EIOU。
-```py
-elif EIoU:
-                w=(w1-w2)*(w1-w2)
-                h=(h1-h2)*(h1-h2)
-                return iou-(rho2/c2+w/(cw**2)+h/(ch**2))#EIOU  2021.12.29
+<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL1.png" width = "80%" />
+
+GPU 网络和数据要同时送进GPU
+
+## 感受野(Receptive field)
+感受野（Receptive Field）是指在卷积神经网络（CNN）中，输出特征图上的一个像素点对应于输入图像上的感受区域大小。感受野的大小可以用来衡量网络在某一层上能够“看到”输入图像的范围，从而影响网络对局部和全局信息的感知能力。
+<img src="https://pic1.zhimg.com/80/v2-93a99cd695aeb1b8edf0c4b4eac8b7a9_1440w.webp?source=1940ef5c"  />
+
+$   n_{output.features}=[\frac{n_{input.features}+2p_{adding.size}-k_{ernel.size}}{s_{tride.size}}+1]   $
+较小的感受野通常用于捕获局部特征，而较大的感受野则有助于捕获全局信息。
+<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL2.png" width = "50%" />
+<img src="https://pic1.zhimg.com/50/v2-d552433faa8363df84c53b905443a556_720w.webp?source=1940ef5c" width = "50%" />
+
+## 反向传播
+待续
+
+## Optimizer
+<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL3.gif" width = "60%" />
+
+$$SGD → SGDM → NAG → AdaGrad → AdaDelta → Adam → Nadam$$
+![图 4](https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL4.png)  
+
+
+## Batch size
+batch size的大小影响的是训练过程中的完成*每个epoch所需的时间* $^1$（假设算力确定了）和每次迭代(iteration)之间*梯度的平滑程度* $^2$。
+> 1. 假设训练集大小为N，每个epoch中mini-batch大小为b，那么完成每个epoch所需的迭代次数为 N/b , 因此完成每个epoch所需的时间会随着迭代次数的增加而增加
+2. 如pytorch\tensorflow等深度学习框架，在进行mini-batch的loss反向传播时，一般都是先将每个mini-batch中每个样本得到的loss求sum后再平均化之后再反求梯度，进行迭代，因此b的大小决定了相邻迭代batch之间的梯度平滑程度。一个batch内所含样本越多，这个batch的梯度应该越能反映真实的梯度，因此这样的大batch间梯度不会跨越太大
+
+因此：大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大 learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛 
+>1. 若是loss还能降，指标还在升，那说明欠拟合，还没收敛，应该继续train，增大epoch。
+2. 若是loss还能再降，指标也在降，说明过拟合了，那就得采用提前终止（减少epoch）或采用weight_decay等防过拟合措施。
+3. 若是设置epoch=16，到第8个epoch，loss也不降了，指标也不动了，说明8个epoch就够了，剩下的白算了。
+
+## 损失函数「loss function」
+来度量模型的预测值$\hat{y}$与真实值$y$的差异程度的运算函数，它是一个非负实值函数，通常使用$L(y, \hat{y})$来表示，损失函数越小，模型的鲁棒性就越好。
+### 基于距离度量的损失函数
+基于距离度量的损失函数通常将输入数据映射到基于距离度量的特征空间上，如欧氏空间、汉明空间等，将映射后的样本看作空间上的点，采用合适的损失函数度量特征空间上样本真实值和模型预测值之间的距离。特征空间上两个点的距离越小，模型的预测性能越好。
+**L1范数损失函数（MAE）**
+$$L_{MSE}=\frac{1}{n}\sum_{i=1}^{n}|y_i-\hat{y_i}|$$
+又称为曼哈顿距离，表示残差的绝对值之和。L1损失函数对离群点有很好的鲁棒性，但它在残差为零处却不可导,且更新的梯度始终相同；
+**L2损失函数（MSE均方误差损失函数）**
+$$L_{MSE}=\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y_i})^2$$
+在回归问题中，均方误差损失函数用于度量样本点到回归曲线的距离，通过最小化平方损失使样本点可以更好地拟合回归曲线。（L2损失又被称为欧氏距离，是一种常用的距离度量方法，通常用于度量数据点之间的相似度。）
+### 基于概率分布度量的损失函数
+基于概率分布度量的损失函数是将样本间的相似性转化为随机事件出现的可能性，即通过度量样本的真实分布与它估计的分布之间的距离，判断两者的相似度，一般用于涉及概率分布或预测类别出现的概率的应用问题中，在分类问题中尤为常用。
+**KL散度（ Kullback-Leibler divergence）**
+$$L_{MSE}=\sum_{i=1}^{n}\hat{y_i}log(\frac{y_i}{\hat{y_i}})$$
+也被称为相对熵，是一种非对称度量方法，常用于度量两个概率分布之间的距离。KL散度也可以衡量两个随机分布之间的距离，两个随机分布的相似度越高的，它们的KL散度越小，可以用于比较文本标签或图像的相似性。
+**交叉熵损失函数「Cross Entropy Loss」**
+$$L=-[ylog\hat{y}+(1-y)log(1-\hat{y})]$$
+$$L=\sum_{i=1}^{N}y^ilog\hat{y}^i+(1-y^i)log(1-\hat{y}^i)$$
+交叉熵是信息论中的一个概念，最初用于估算平均编码长度，引入机器学习后，用于评估当前训练得到的概率分布与真实分布的差异情况。为了使神经网络的每一层输出从线性组合转为非线性逼近，以提高模型的预测精度，在以交叉熵为损失函数的神经网络模型中一般选用tanh、sigmoid、softmax或ReLU作为激活函数。
+
+交叉熵损失函数刻画了实际输出概率与期望输出概率之间的相似度，也就是交叉熵的值越小，两个概率分布就越接近，特别是在正负样本不均衡的分类问题中，常用交叉熵作为损失函数。目前，交叉熵损失函数是卷积神经网络中最常使用的分类损失函数，它可以有效避免梯度消散。在二分类情况下也叫做对数损失函数
+
+在多分类任务中，经常采用 softmax 激活函数+交叉熵损失函数，因为交叉熵描述了两个概率分布的差异，然而神经网络输出的是向量，并不是概率分布的形式。所以需要 softmax激活函数将一个向量进行“归一化”成概率分布的形式，再采用交叉熵损失函数计算 loss。
+
+在Pytorch中，BCELoss和BCEWithLogitsLoss是一组常用的二元交叉熵损失函数，常用于二分类问题。区别在于BCELoss的输入需要先进行Sigmoid处理，而BCEWithLogitsLoss则是将Sigmoid和BCELoss合成一步，也就是说BCEWithLogitsLoss函数内部自动先对output进行Sigmoid处理，再对output 和target进行BCELoss计算。 
+
+one-hot独热编码：将类别变量转换为机器学习算法易于利用的一种形式的过程。
+
+# 注意力机制（Attention Mechanism）
+自上而下有意识的聚焦称为**聚焦式注意力**，自下而上无意识、由外界刺激引发的注意力称为**显著式注意力**。
+神经网络中的注意力机制是在计算能力有限的情况下，将计算资源分配给更重要的任务，同时解决信息超载问题的一种资源分配方案，到2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中将其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制在NLP,CV相关问题的网络设计上被广泛应用。
+注意力有两种，一种是软注意力(soft attention)，另一种则是强注意力(hard attention)。
+**软注意力**更关注区域或者通道，是确定性的注意力，学习完成后直接可以通过网络生成，最关键的地方是软注意力是可微的，这是一个非常重要的地方。可以微分的注意力就可以通过神经网络算出梯度并且前向传播和后向反馈来学习得到注意力的权重。
+**强注意力**是更加关注点，也就是图像中的每个点都有可能延伸出注意力，同时强注意力是一个随机的预测过程，更强调动态变化。当然，最关键是强注意力是一个不可微的注意力，训练过程往往是通过增强学习(reinforcement learning)来完成的。
+## 软注意力的注意力域
+### 空间域（Spatial Domain）
+空间域将原始图片中的空间信息变换到另一个空间中并保留了关键信息。
+普通的卷积神经网络中的池化层（pooling layer）直接用一些max pooling 或者average pooling 的方法，将图片信息压缩，减少运算量提升准确率。
+发明者认为之前pooling的方法太过于暴力，直接将信息合并会导致关键信息无法识别出来，所以提出了一个叫 **空间转换器（spatial transformer）** 的模块，将图片中的的空间域信息做对应的空间变换，从而能将关键的信息提取出来。
+<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL5.png" width = "50%" />
+
+### 通道域（Channel Domain）
+通道注意力机制在计算机视觉中，更关注特征图中channel之间的关系，而普通的卷积会对通道做通道融合，这个开山鼻祖是SENet,后面有GSoP-Net，FcaNet 对SENet中的squeeze部分改进，EACNet对SENet中的excitation部分改进，SRM,GCT等对SENet中的scale部分改进。
+
+[SENet](https://arxiv.org/abs/1709.01507),[pytorch](https://github.com/moskomule/senet.pytorch)
+SENet《Squeeze-and-Excitation Networks》是CVPR17年的一篇文章，提出SE module。在卷积神经网络中，卷积操作更多的是关注感受野，在通道上默认为是所有通道的融合（深度可分离卷积不对通道进行融合，但是没有学习通道之间的关系，其主要目的是为了减少计算量），SENet提出SE模块，将注意力放到通道之间，希望模型可以学习到不同通道之间的权重：
+![图 6](https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL6.png)  
+
+### 时域注意力机制
+时域注意力机制在cv领域主要考虑有时序信息的领域，如视频领域中的动作识别方向，其注意力机制主要是在时序列中，关注某一时序即某一帧的信息。
+
+### 通道和空间注意力机制
+通道和空间注意力是基于通道注意力和空间注意力机制，将两者有效的结合在一起，让注意力能关注到两者，又称混合注意力机制，如CBAM,BAM,scSE等，同时基于混合注意力机制的一些关注点，如Triplet Attention 关注各种跨维度的相互作用；Coordinate Attention, DANet关注长距离的依赖；RGA 关注关系感知注意力。还有一种混合注意力机制，为3D的attention :Residual attention,SimAM, Strip Pooling, SCNet等。
+
+[CBAM](https://arxiv.org/abs/1807.06521),[github](https://github.com/luuuyi/CBAM.PyTorch) 
+CBAM (Convolutional Block Attention Module)是SENet的一种拓展，SENet主要基于通道注意力，CBAM是通道注意力和空间注意力融合的注意力机制。
+![图 7](https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL7.png)  
+如上图所示，输入一个h*w*c的特征图，通过channel Attention Module 生成通道注意力权重对输入特征图在通道层添加权重，再通过spatial Attention Module 生成空间注意力权重，对特征图在空间层添加权重，输出特征图。
+
+# Metrics 评估
+## 混淆矩阵
+<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL8.png" width = "70%" />
+
+X横坐标为正确的分类（即你用标签所标注的真实分类）
+Y纵坐标为模型所预测的分类（即图片经过模型推理后模型将其辨别为的分类）
+> True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）
+True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）
+False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）
+False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）
+
+## Evaluation parameters
+**准确率 Accuracy**：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）
+$$Accuracy=\frac{TP+TN}{TP+FP+TN+FN}$$  
+**精准率（查准率） precision**：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。
+$$precision(P)=\frac{TP}{TP+FP}$$
+**召回率（查全率） recall**：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。
+$$recall(R)=\frac{TP}{TP+FN}$$
+**F1 score**：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。
+$$F_1 score=2\cdot \frac{P\cdot R}{P+R}$$
+**AP**：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。 
+$$AP_i=\int_0^1P_i(R_i)dR_i$$
+**mAP**：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。
+将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.
+$$mAP=\frac1n\sum_{i = 1}^{n}AP_i$$
+**置信度 Confidence**：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。
+![图 9](https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png)  
+
+**交并比 IoU**（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。map@0.5即IoU=0.5，预测框和标注框的交集与非交集占比相同，都为50%。 
+<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" />
+
+**ROC曲线**(Receiver Operating Characteristic 受试者工作特征)
+$$TPR=\frac{TP}{TP+FN},FPR=\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。
+在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标 
+<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "40%" />
+
+**AUC值**：PR曲线下方的面积
+<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" />
+
+> 1.AUC = 1，是完美分类器，采用这个预测模型时，存在至少一个阈值能得出完美预测。绝大多数预测的场合，不存在完美分类器。
+2.0.5 < AUC < 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。
+3.AUC = 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。
+4.AUC < 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。
+
+ROC曲线图中，越靠近(0,1)的点对应的模型分类性能越好。而且可以明确的一点是，ROC曲线图中的点对应的模型，它们的不同之处仅仅是在分类时选用的阈值(Threshold)不同，每个点所选用的阈值都对应某个样本被预测为正类的概率值。
+## 模型计算量(FLOPs)和参数量(Params)
+**计算量 FLOPs**：FLOP时指浮点运算次数，s是指秒，即每秒浮点运算次数的意思，考量一个网络模型的计算量的标准。硬件要求是在于芯片的floaps（指的是gpu的运算能力）
+**参数量 Params**：是指网络模型中需要训练的参数总数。硬件要求在于显存大小
+1.**卷积层**
+计算时间复杂度(计算量)
+$$Time\sim O(\sum_{l=1}^D M_l^2\cdot K_l^2\cdot C_{l-1}\cdot C_l)$$
+
+计算空间复杂度(参数量)
+$$Space\sim O(\sum_{l=1}^D K_l^2\cdot C_{l-1}\cdot C_l+\sum_{l=1}^D M^2\cdot C_l)$$
+
 ```
-2. 将loss.py中边框位置回归损失函数改为eiou。
-```py
-            iou = bbox_iou(pbox.T, tbox[i], x1y1x2y2=False, EIoU=True)  # iou(prediction, target)
+参数量
+(kernel*kernel) *channel_input*channel_output
+kernel*kernel 就是 weight * weight
+其中kernel*kernel ＝ 1个feature的参数量
+
+计算量
+(kernel*kernel*map*map) *channel_input*channel_output
+kernel*kernel 就是weight*weight
+map*map是下个featuremap的大小，也就是上个weight*weight到底做了多少次运算
+其中kernel*kernel*map*map＝　1个feature的计算量
 ```
+2.池化层
+无参数
+3.**全连接层**
+``参数量＝计算量＝weight_in*weight_out  #模型里面最费参数的就是全连接层``
 
-## 参数配置（YOLOv5）
-**Detect参数**
-调用电脑摄像头: 
-右上角py配置 > Edit Configurations > Parameters
-``--view-img --source 0``
+**换算计算量**,一般一个参数是指一个float，也就是４个字节,1kb=1024字节
 
-调用手机摄像头：
-下载 [IP摄像头](https://www.123pan.com/s/goS7Vv-QeKbd.html) App，关闭代理，连同一个网，Parameters配置为：
-``--source http://admin:admin@192.168.43.1:8081`` 具体地址见 APP
-
-**Train参数**
-`action='store_true'` 触发了为true，否则为false 和 default=False 效果一样
-
-**YOLOv8（没搞懂）**
-该版本参数集中配置ultralytics/yolo/configs/default.yaml
-model参数可以是pt也可以是yaml。
->pt:相当于使用预训练权重进行训练，比如选择为yolov8n.pt，就是训练一个yolov8n模型，并且训练前导入这个pt的权重。
-yaml:相当于直接初始化一个模型进行训练，比如选择为yolov8n.yaml，就是训练一个yolov8n模型，权重是随机初始化。
-
-data.yaml数据只能用绝对地址
-要修改代码先卸ultralytics包，利用setup.py
-
-# 炼丹经验
-+ **数据集**：输入图像的大小要求必须是32的倍数；Resize保持原始图像比例调整大小更安全；标注时标注框的设计影响精度
-
-+ **配置**：mosic有时没用可删；删卷积层可减少计算量；若显存不足需要调小batchsize或数据集分辨率；可以从小模型中学到的权重开始，对更大模型进行训练
-    + 大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛
-    + 参数调优过程一般要反复多次进行`微调<—>训练<—>测试`，最终得出符合需求/较优的HyperPara，应用在项目中	`data/hyps/hyp.finetune.yaml`
-
-**小目标检测**：小目标检测效果不好主要原因为小目标尺寸问题。
-以网络的输入608×608为例，yolov5中下采样使用了5次，因此最后的特征图大小是19×19，38×38，76×76。三个特征图中，最大的76×76负责检测小目标，而对应到608×608上，每格特征图的感受野是608/76=8×8大小。即如果原始图像中目标的宽或高小于8像素，网络很难学习到目标的特征信息。
-另外很多图像分辨率很大，如果简单的进行下采样，下采样的倍数太大，容易丢失数据信息。但是倍数太小，网络前向传播需要在内存中保存大量的特征图，极大耗尽GPU资源,很容易发生显存爆炸，无法正常的训练及推理。
-这种情况可以使用**分割**的方式，将大图先分割成小图，再对每个小图检测，不过这样方式有优点也有缺点： 
-> 优点：准确性 分割后的小图，再输入目标检测网络中，对于最小目标像素的下限会大大降低。
-比如分割成608×608大小，送入输入图像大小608×608的网络中，按照上面的计算方式，原始图片上，长宽大于8个像素的小目标都可以学习到特征。
-缺点：增加计算量 比如原本1920×1080的图像，如果使用直接大图检测的方式，一次即可检测完。但采用分割的方式，切分成4张912×608大小的图像，再进行N次检测，会大大增加检测时间。
-[YOLOV5 模型和代码修改——针对小目标识别-CSDN博客](https://blog.csdn.net/weixin_56184890/article/details/119840555)
-
-此外，也可以增加一个小目标检测层：[增加小目标检测层-CSDN博客](https://blog.csdn.net/m0_70388905/article/details/125392908)
-
-![图 3](https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo3.png)  
-
-
-# 其他未实现的想法
-剪枝：[模型剪枝、蒸馏、压缩-CSDN博客](https://blog.csdn.net/m0_70388905/article/details/128222629)
-[GitHub - Torch-Pruning: [CVPR 2023] Towards Any Structural Pruning; ](https://github.com/VainF/Torch-Pruning)
-
-融合EfficientNet和YoloV5：主要思想是训练一个图像分类模型(EfficientNet)，它可以实现非常高的AUC(约0.99)，并找到一种方法将其与目标检测模型融合。这被称为“2 class filter”
-
-加权框融合(WBF)后处理：对目标检测模型产生的框进行过滤，从而使结果更加准确和正确的技术。它的性能超过了现有的类似方法，如NMS和soft-NMS。
-
-用5折交叉验证
-双流网络
-矩形训练
-PERCLOS值怎么显示？
-把图像增强工作流加入算法？
-
-The author uses ArcFace loss to measure the error of prediction. This loss was proposed for facial recognition in 2018. Other sophisticated approaches have also been published in recent years, such as [ElasticFace](https://openaccess.thecvf.com/content/CVPR2022W/Biometrics/papers/Boutros_ElasticFace_Elastic_Margin_Loss_for_Deep_Face_Recognition_CVPRW_2022_paper.pdf). author can compare the proposed loss with this approach.
-
-[YOLOV5 模型和代码修改——针对小目标识别](https://blog.csdn.net/weixin_56184890/article/details/119840555)
+# Transformer
+![图 13](https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL13.png)  
+![图 14](https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL14.png)  
+![图 15](https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL15.png)  

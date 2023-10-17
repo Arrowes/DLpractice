@@ -54,50 +54,31 @@ tags:
 如果requirements中有包实在安不上，手动装包：进[网站](https://pypi.org/)搜索包，下载.whl，在包所在位置激活环境运行``pip install [].whl``(包名中cp38代表python3.8版本)
 
 ## 资料与代码
-官方论文+代码:
-| Model   | Paper                                                 | Code                                                |
-|---------|-------------------------------------------------------|-----------------------------------------------------|
+
+| Model   |Paper  | Code|
+|---------|-------|-------|
 | YOLOv1  | [You Only Look Once:Unified, Real-Time Object Detection](https://arxiv.org/pdf/1506.02640.pdf)        | [Code](https://pjreddie.com/darknet/yolov1/)        |
-| YOLOv2  | [YOLO9000:Better, Faster, Stronger](https://arxiv.org/pdf/1612.08242.pdf)        | [Code](https://pjreddie.com/darknet/yolo/)          |
-| YOLOv3  | [YOLOv3: An Incremental Improvement](https://arxiv.org/pdf/1804.02767.pdf)        | [Code](https://github.com/ultralytics/yolov3)       |
-| YOLOv4  | /                                                     | [Code](https://github.com/Tianxiaomo/pytorch-YOLOv4)|
-| YOLOv5  | /                                                     | [Code](https://github.com/search?q=yolov5)          |
-| YOLOv6  | [YOLOv6: A Single-Stage Object Detection Framework for Industrial Applications](https://arxiv.org/pdf/2209.02976.pdf)        | [Code](https://github.com/meituan/YOLOv6)           |
-| YOLOv7  | [YOLOv7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors](https://arxiv.org/abs/2207.02696)            | [Code](https://github.com/WongKinYiu/yolov7)        |
-| YOLOv8  | /                                                     | [Code](https://github.com/ultralytics/ultralytics)  |
+| YOLOv2  | [YOLO9000:Better, Faster, Stronger](https://arxiv.org/pdf/1612.08242.pdf) | [Code](https://pjreddie.com/darknet/yolo/)|
+| YOLOv3  | [YOLOv3: An Incremental Improvement](https://arxiv.org/pdf/1804.02767.pdf)| [Code](https://github.com/ultralytics/yolov3)|
+| YOLOv4  | [YOLOv4: Optimal Speed and Accuracy of Object Detection](https://arxiv.org/pdf/2004.10934.pdf)| [Code](https://github.com/Tianxiaomo/pytorch-YOLOv4)|
+| YOLOv5  | /|      [Code](https://github.com/ultralytics/yolov5)|
+| YOLOv6  | [YOLOv6: A Single-Stage Object Detection Framework for Industrial Applications](https://arxiv.org/pdf/2209.02976.pdf)|              [Code](https://github.com/meituan/YOLOv6)|
+| YOLOv7  | [YOLOv7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors](https://arxiv.org/abs/2207.02696)|   [Code](https://github.com/WongKinYiu/yolov7)|
+| YOLOv8  | /|     [Code](https://github.com/ultralytics/ultralytics)  |
+|CEAM-YOLOv7| [CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection](https://ieeexplore.ieee.org/document/9980374/metrics) |       [Code](https://github.com/Arrowes/CEAM-YOLOv7)
+|FEY-YOLOv7| [A Driver Fatigue Detection Algorithm Based on Dynamic Tracking of Small Facial Targets Using YOLOv7](https://search.ieice.org/bin/summary_advpub.php?id=2023EDP7093&category=D&lang=E&abst=) | [Code](https://github.com/Arrowes/FEY-YOLOv7)
 
 YOLOv1 - v5历程：[从yolov1至yolov5的进阶之路](https://blog.csdn.net/wjinjie/article/details/107509243)
 YOLOv3论文精读视频：[同济子豪兄YOLOV3目标检测](https://www.bilibili.com/video/BV1Vg411V7bJ/?)
-YOLOv5知识精讲：[Yolov5核心基础知识完整讲解](https://zhuanlan.zhihu.com/p/172121380)
+YOLOv5知识精讲：[Yolov5核心基础知识完整讲解](https://zhuanlan.zhihu.com/p/172121380)，[YOLOV5-5.x 源码讲解](https://blog.csdn.net/qq_38253797/article/details/119043919)
 YOLOv7网络结构：[理解yolov7网络结构](https://blog.csdn.net/athrunsunny/article/details/125951001) ,[Yolov7 基础网络结构详解](https://blog.csdn.net/u010899190/article/details/125883770)
-全流程指导视频：[目标检测 YOLOv5 开源代码项目调试与讲解实战](https://www.bilibili.com/video/BV1tf4y1t7ru/)
+全流程指导视频：[目标检测 YOLOv5 开源代码项目调试与讲解实战-土堆](https://www.bilibili.com/video/BV1tf4y1t7ru/)
 
 
-算法复现精品仓库：[Bubbliiiing](https://github.com/bubbliiiing)
+算法精品仓库：[Bubbliiiing](https://github.com/bubbliiiing)
+[YOLO Air](https://github.com/iscyy/yoloair)，[YOLO Air2](https://github.com/iscyy/yoloair2)
+[yolov5_research](https://github.com/positive666/yolov5_research)
 
-发表论文：[CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection](https://ieeexplore.ieee.org/document/9980374/metrics)，Github代码：[CEAM-YOLOv7](https://github.com/Arrowes/CEAM-YOLOv7)
-
-## 参数配置（YOLOv5）
-**Detect参数**
-调用电脑摄像头: 
-右上角py配置 > Edit Configurations > Parameters
-``--view-img --source 0``
-
-调用手机摄像头：
-下载 [IP摄像头](https://www.123pan.com/s/goS7Vv-QeKbd.html) App，关闭代理，连同一个网，Parameters配置为：
-``--source http://admin:admin@192.168.43.1:8081`` 具体地址见 APP
-
-**Train参数**
-`action='store_true'` 触发了为true，否则为false 和 default=False 效果一样
-
-**YOLOv8**
-该版本参数集中配置ultralytics/yolo/configs/default.yaml
-model参数可以是pt也可以是yaml。
->pt:相当于使用预训练权重进行训练，比如选择为yolov8n.pt，就是训练一个yolov8n模型，并且训练前导入这个pt的权重。
-yaml:相当于直接初始化一个模型进行训练，比如选择为yolov8n.yaml，就是训练一个yolov8n模型，权重是随机初始化。
-
-data.yaml数据只能用绝对地址
-要修改代码先卸ultralytics包，利用setup.py
 
 # Ideas
 ## 数据集
@@ -169,6 +150,27 @@ elif EIoU:
             iou = bbox_iou(pbox.T, tbox[i], x1y1x2y2=False, EIoU=True)  # iou(prediction, target)
 ```
 
+## 参数配置（YOLOv5）
+**Detect参数**
+调用电脑摄像头: 
+右上角py配置 > Edit Configurations > Parameters
+``--view-img --source 0``
+
+调用手机摄像头：
+下载 [IP摄像头](https://www.123pan.com/s/goS7Vv-QeKbd.html) App，关闭代理，连同一个网，Parameters配置为：
+``--source http://admin:admin@192.168.43.1:8081`` 具体地址见 APP
+
+**Train参数**
+`action='store_true'` 触发了为true，否则为false 和 default=False 效果一样
+
+**YOLOv8（没搞懂）**
+该版本参数集中配置ultralytics/yolo/configs/default.yaml
+model参数可以是pt也可以是yaml。
+>pt:相当于使用预训练权重进行训练，比如选择为yolov8n.pt，就是训练一个yolov8n模型，并且训练前导入这个pt的权重。
+yaml:相当于直接初始化一个模型进行训练，比如选择为yolov8n.yaml，就是训练一个yolov8n模型，权重是随机初始化。
+
+data.yaml数据只能用绝对地址
+要修改代码先卸ultralytics包，利用setup.py
 
 # 炼丹经验
 + **数据集**：输入图像的大小要求必须是32的倍数；Resize保持原始图像比例调整大小更安全；标注时标注框的设计影响精度
@@ -180,15 +182,21 @@ elif EIoU:
 **小目标检测**：小目标检测效果不好主要原因为小目标尺寸问题。
 以网络的输入608×608为例，yolov5中下采样使用了5次，因此最后的特征图大小是19×19，38×38，76×76。三个特征图中，最大的76×76负责检测小目标，而对应到608×608上，每格特征图的感受野是608/76=8×8大小。即如果原始图像中目标的宽或高小于8像素，网络很难学习到目标的特征信息。
 另外很多图像分辨率很大，如果简单的进行下采样，下采样的倍数太大，容易丢失数据信息。但是倍数太小，网络前向传播需要在内存中保存大量的特征图，极大耗尽GPU资源,很容易发生显存爆炸，无法正常的训练及推理。
-这种情况可以使用分割的方式，将大图先分割成小图，再对每个小图检测，不过这样方式有优点也有缺点： 
+这种情况可以使用**分割**的方式，将大图先分割成小图，再对每个小图检测，不过这样方式有优点也有缺点： 
 > 优点：准确性 分割后的小图，再输入目标检测网络中，对于最小目标像素的下限会大大降低。
 比如分割成608×608大小，送入输入图像大小608×608的网络中，按照上面的计算方式，原始图片上，长宽大于8个像素的小目标都可以学习到特征。
 缺点：增加计算量 比如原本1920×1080的图像，如果使用直接大图检测的方式，一次即可检测完。但采用分割的方式，切分成4张912×608大小的图像，再进行N次检测，会大大增加检测时间。
+[YOLOV5 模型和代码修改——针对小目标识别-CSDN博客](https://blog.csdn.net/weixin_56184890/article/details/119840555)
+
+此外，也可以增加一个小目标检测层：[增加小目标检测层-CSDN博客](https://blog.csdn.net/m0_70388905/article/details/125392908)
 
 ![图 3](https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo3.png)  
 
 
 # 其他未实现的想法
+剪枝：[模型剪枝、蒸馏、压缩-CSDN博客](https://blog.csdn.net/m0_70388905/article/details/128222629)
+[GitHub - Torch-Pruning: [CVPR 2023] Towards Any Structural Pruning; ](https://github.com/VainF/Torch-Pruning)
+
 融合EfficientNet和YoloV5：主要思想是训练一个图像分类模型(EfficientNet)，它可以实现非常高的AUC(约0.99)，并找到一种方法将其与目标检测模型融合。这被称为“2 class filter”
 
 加权框融合(WBF)后处理：对目标检测模型产生的框进行过滤，从而使结果更加准确和正确的技术。它的性能超过了现有的类似方法，如NMS和soft-NMS。
