@@ -1,0 +1,11 @@
+matplotlib
+numpy
+onnx
+onnxruntime
+opencv-python
+pillow
+requests
+tensorboard
+tensorboardX
+torch
+torchvision
